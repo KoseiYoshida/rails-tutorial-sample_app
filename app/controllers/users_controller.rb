@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     # フォームで入力された情報がparamsに入ってやってくる。(submit時])
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
       # => redirect_to user_url(@user)
