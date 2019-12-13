@@ -3,21 +3,19 @@ class SessionsController < ApplicationController
   end
   
   def create
-    target_email = params[:session][:email].downcase
-    target_password = params[:session][:password]
-    user = User.find_by(email:target_email)
-    if user && user.authenticate(target_password)
-      log_in user
-      # same - redirect_to user_url(user)
-      redirect_to user
+    @user = User.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
+      log_in @user
+      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+      redirect_to @user
     else
-      flash.now[:danger] = "invalid email/password conbination"
-      render "new"
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'new'
     end
   end
   
   def destroy
-    log_out
+    log_out if logged_in? #別のタブですでにログアウトしている場合などがある。
     redirect_to root_url
   end
   
