@@ -1,12 +1,11 @@
-<% provide(:title, "Sign up") %>
-<% provide(:button_text, "Create my account") %>
-<% provide(:form_url, signup_path) %>
-<h1>Sign up</h1>
-<p>This will be a signup page for new users.</p>
+<% provide(:title, "Edit user") %>
+<% provide(:button_text, "Save chagnes") %>
 
-<divc class="row">
-  <div calss="col-md-6 col-md-offset-3">
-    <%= form_for(@user, url:signup_path) do |f| %>
+<h1>Update your profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
       <%= render "shared/error_messages" %>
       
       <%= f.label :name %>
@@ -23,5 +22,13 @@
       
       <%= f.submit yield(:button_text), class:"btn btn-primary" %>
     <% end %>
+    
+    <hr>
+    
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <a href="http://gravatar.com/emails" target="_blank" rel="noopener">change</a>
+    </div>
+    
   </div>
-</divc>
+</div>
