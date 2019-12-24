@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   
   # RESTfulに必要なパスを一括定義
   resources :users
+  resources :account_activations, only:[:edit]
   
 end

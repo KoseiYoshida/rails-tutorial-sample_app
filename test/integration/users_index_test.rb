@@ -13,10 +13,14 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_template "users/index"
     assert_select "div.pagination"
     User.paginate(page: 1).each do |user|
-      assert_select "a[href=?]", user_path(user), text: user.name
-      #adminでログインしている状態。自分以外のユーザーなら、deleteリンクが存在する
-      unless user == @admin
-        assert_select "a[href=?]", user_path(user), text: "delete"
+      if user.activated
+        assert_select "a[href=?]", user_path(user), text: user.name
+        #adminでログインしている状態。自分以外のユーザーなら、deleteリンクが存在する
+        unless user == @admin
+          assert_select "a[href=?]", user_path(user), text: "delete"
+        end
+      else
+        assert_select "a[href=?]", user_path(user), count: 0
       end
     end
     assert_difference "User.count", -1 do
