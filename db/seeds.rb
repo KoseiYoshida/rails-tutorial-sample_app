@@ -4,7 +4,7 @@ User.create!( name: "Example User",
               password_confirmation: "foobar",
               admin: true,
               activated: true,
-              activatee_at: Time.zone.now,
+              activated_at: Time.zone.now,
               )
               
 100.times do |n|
@@ -16,7 +16,7 @@ User.create!( name: "Example User",
                 password: password,
                 password_confirmation: password,
                 activated: true,
-                activatee_at: Time.zone.now,
+                activated_at: Time.zone.now,
                 )
   puts "#{(n+1).to_f} % done, creating fake users"
 end
