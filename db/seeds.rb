@@ -1,3 +1,5 @@
+puts "start creating fake users"
+
 User.create!( name: "Example User",
               email: "example@railstutorial.org",
               password: "foobar",
@@ -19,4 +21,12 @@ User.create!( name: "Example User",
                 activated_at: Time.zone.now,
                 )
   puts "#{(n+1).to_f} % done, creating fake users"
+end
+
+puts "start creating microposts"
+
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
 end
